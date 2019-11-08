@@ -39,7 +39,7 @@ namespace API_SIGNINAPP.Controllers
         public string Post([FromBody] Classes value)
         {
             string query = "INSERT INTO CLASS (CLASSID, DAY, STARTTIME, ENDTIME, NAME, LABEL)" +
-                "VALUES ( {0}, '{1}', '{2}')";
+                "VALUES ( {0}, '{1}', '{2}', '{3}', '{4}', '{5}')";
 
             query = string.Format(query, value.ClassID, value.Day, value.StartTime, value.EndTime, value.Name, value.Label);
 
@@ -55,9 +55,9 @@ namespace API_SIGNINAPP.Controllers
                 NumRows = comm.ExecuteNonQuery();
                 output = string.Format("{0} rows inserted", NumRows.ToString());
             }
-            catch
+            catch(DatabaseInsertionException ex)
             {
-                throw new NotImplementedException();
+                Console.WriteLine(ex);
             }
             return output;
 
